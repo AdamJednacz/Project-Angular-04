@@ -1,0 +1,12 @@
+<form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()" >
+  <mat-form-field>
+    <mat-label>Select Currency Code</mat-label>
+    <mat-select required formControlName="currency">
+      <mat-option>--</mat-option>
+      @for (currencyCode of currenciesCodes; track currencyCode  ) {
+      <mat-option [value]="currencyCode.code"> {{currencyCode.code}} - {{currencyCode.currency}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <button mat-flat-button> Check </button>
+</form>

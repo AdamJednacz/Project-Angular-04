@@ -1,0 +1,43 @@
+section {
+  display: table;
+  margin: 1rem;
+  height: 100%;
+}
+button{
+  font-size: 15px;
+  line-height: 18px;
+  height:70px ;
+  width: 150px;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+
+.example-button-col{
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+
+}
+
+
+.example-button-col .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}

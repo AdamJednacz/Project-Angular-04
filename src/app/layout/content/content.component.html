@@ -1,0 +1,17 @@
+<div class="content_container">
+
+  <app-buttons (viewChange)="switchView($event)"></app-buttons>
+
+  <div class="content_views_container">
+    @if(currentView === 'dashboard'){
+    <app-dashboard/>
+    }
+    @if(currentView === 'saved-currencies'){
+    <app-saved-currencies/>
+    }
+    @if(currentView === 'world-financial-news'){
+    <app-world-financial-news/>
+    }
+  </div>
+
+</div>
