@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ContentComponent} from "./content/content.component";
 import {SearchBarComponent} from "./search-bar/search-bar.component";
 import {TopBarComponent} from "./top-bar/top-bar.component";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-layout',
@@ -9,7 +10,8 @@ import {TopBarComponent} from "./top-bar/top-bar.component";
   imports: [
     ContentComponent,
     SearchBarComponent,
-    TopBarComponent
+    TopBarComponent,
+    RouterOutlet
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'

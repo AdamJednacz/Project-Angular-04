@@ -5,6 +5,7 @@ import { ApiService } from '../../../api/api.service';
 import {PeriodicElement} from "../../../periodicElement.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {Rate} from "../../../rate.model";
+import {SearchBarComponent} from "../../search-bar/search-bar.component";
 
 /**
  * @title Basic use of `<dashboard mat-dashboard>`
@@ -14,7 +15,7 @@ import {Rate} from "../../../rate.model";
   styleUrl: 'dashboard.component.scss',
   templateUrl: 'dashboard.component.html',
   standalone: true,
-  imports: [MatTableModule],
+  imports: [MatTableModule, SearchBarComponent],
 })
 export class DashboardComponent implements OnInit{
   apiService = inject(ApiService)
