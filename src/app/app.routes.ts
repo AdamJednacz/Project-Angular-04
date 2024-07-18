@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
- 
+
 import {WelcomeComponent} from "./layout/welcome/welcome.component";
 
 export const routes: Routes = [
