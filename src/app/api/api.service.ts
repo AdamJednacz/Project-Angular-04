@@ -22,7 +22,7 @@ export class ApiService {
       bid: rate.bid,
       date: rate.effectiveDate
     }));
-    this._ELEMENT_DATA.next(newData); // Wysyłanie nowych danych do BehaviorSubject
+    this._ELEMENT_DATA.next(newData);
     console.log('Received rates:', rates, newData);
 
   }

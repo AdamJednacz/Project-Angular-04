@@ -6,6 +6,8 @@ import {PeriodicElement} from "../../../periodicElement.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {Rate} from "../../../rate.model";
 import {SearchBarComponent} from "../../search-bar/search-bar.component";
+import { Observable} from "rxjs";
+import {NgForOf} from "@angular/common";
 
 /**
  * @title Basic use of `<dashboard mat-dashboard>`
@@ -15,7 +17,7 @@ import {SearchBarComponent} from "../../search-bar/search-bar.component";
   styleUrl: 'dashboard.component.scss',
   templateUrl: 'dashboard.component.html',
   standalone: true,
-  imports: [MatTableModule, SearchBarComponent],
+  imports: [MatTableModule, SearchBarComponent, NgForOf],
 })
 export class DashboardComponent implements OnInit{
   apiService = inject(ApiService)
@@ -23,8 +25,10 @@ export class DashboardComponent implements OnInit{
   dataSource = new MatTableDataSource<PeriodicElement>([]);
   private destroyRef = inject(DestroyRef);
 
+  entities$: Observable<PeriodicElement[]> = this.apiService.ELEMENT_DATA;
+
   ngOnInit() {
-    const subscription = this.apiService.ELEMENT_DATA.subscribe(data => {
+    const subscription = this.entities$.subscribe(data => {
       this.dataSource.data = data;
       console.log('DataSource:', this.dataSource.data);
     });
@@ -33,5 +37,6 @@ export class DashboardComponent implements OnInit{
       subscription.unsubscribe();
     });
   }
+
 
 }
