@@ -8,7 +8,7 @@ import {Rate, RateC} from "../../rate.model";
 import {ApiService} from "../../api/api.service";
 import {MatSelectModule} from  '@angular/material/select' ;
 import {MatButton} from "@angular/material/button";
-import {filter, Subscription} from "rxjs";
+import {combineLatest, filter, Subscription} from "rxjs";
 import {Api2Service} from "../../api/api2.service";
 
 
@@ -24,7 +24,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   currenciesCodes: { code: string, currency: string }[] = [];
   form=new FormGroup({
-    currency:new FormControl('')
+    currency:new FormControl(''),
+    numberOfDays:new FormControl('')
   });
 
   private _subs = new Subscription();
@@ -51,9 +52,13 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       subscription.unsubscribe();
     });
 
-    this._subs.add(this.form.controls['currency'].valueChanges.pipe(
-      filter(val => !!val)
-    ).subscribe(val => this.makeCall(val!)));
+    const currencyChanges = this.form.controls['currency'].valueChanges.pipe(filter(val => !!val));
+    const daysChanges = this.form.controls['numberOfDays'].valueChanges.pipe(filter(no => !!no));
+
+    this._subs.add(combineLatest([currencyChanges,daysChanges]).
+    subscribe(([currencyChanges,daysChanges])=> this.makeCall(currencyChanges!,daysChanges!)));
+
+
   }
 
   ngOnDestroy() {
@@ -64,8 +69,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     console.log(this.form.value.currency)
   }
 
-  private makeCall(val: string): void {
-    const subscription = this.httpClient.get<{rates:Rate[]}>(`http://api.nbp.pl/api/exchangerates/rates/c/${val}/last/20/`).subscribe({
+  private makeCall(currency: string,days:string): void {
+    const subscription = this.httpClient.get<{rates:Rate[]}>(`https://api.nbp.pl/api/exchangerates/rates/c/${currency}/last/${days}/`).subscribe({
       next: (data) => {
         console.log(data.rates);
         this.apiService.receiveRatesData(data.rates);
